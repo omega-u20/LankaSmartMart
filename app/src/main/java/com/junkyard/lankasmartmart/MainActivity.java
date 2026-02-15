@@ -1,9 +1,10 @@
 package com.junkyard.lankasmartmart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView; // Don't forget this import!
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         // Find Buttons
-        btnNext = findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnRet);
         textSkip = findViewById(R.id.textSkip);
         btnGetStarted = findViewById(R.id.btnGetStarted);
 
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(1);
             } else {
                 // If on Last Page, "Log In" should open the Login Screen
-                // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                // startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -114,6 +115,24 @@ public class MainActivity extends AppCompatActivity {
                     btnNext.setVisibility(View.VISIBLE);
                     textSkip.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        btnGetStarted.setOnClickListener(v -> {
+            if (viewPager.getCurrentItem() == 0) {
+                // If on Page 1 (Start), move to Page 2
+                viewPager.setCurrentItem(1);
+            } else {
+                // If on Last Page (Delivery), Open Login Screen!
+
+                // 1. Create the Intent (From Here -> To LoginActivity)
+                android.content.Intent intent = new android.content.Intent(MainActivity.this, LoginActivity.class);
+
+                // 2. Start the new activity
+                startActivity(intent);
+
+                // Optional: Finish this activity so the user can't go back to onboarding
+                // finish();
             }
         });
     }
