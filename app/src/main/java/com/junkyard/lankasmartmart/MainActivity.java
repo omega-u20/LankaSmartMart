@@ -18,6 +18,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 1. Open the "AppPrefs" notepad
+        android.content.SharedPreferences preferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        boolean isFirstTime = preferences.getBoolean("isFirstTime", true);
+
+        // 2. Check if it's the first time
+        if (!isFirstTime) {
+            // Not the first time! Skip onboarding and go to Login
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Destroy MainActivity so they can't go back to onboarding
+            return; // Stop the rest of the code from running
+        }
+
+        // If it IS the first time, continue setting up the onboarding layout
         setContentView(R.layout.activity_main);
 
         ArrayList<OnboardingItem> onboardingItems = new ArrayList<>();
@@ -120,19 +135,18 @@ public class MainActivity extends AppCompatActivity {
 
         btnGetStarted.setOnClickListener(v -> {
             if (viewPager.getCurrentItem() == 0) {
-                // If on Page 1 (Start), move to Page 2
                 viewPager.setCurrentItem(1);
             } else {
-                // If on Last Page (Delivery), Open Login Screen!
+                // --- NEW CODE: Mark onboarding as complete ---
+                android.content.SharedPreferences preferences1 = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                android.content.SharedPreferences.Editor editor = preferences1.edit();
+                editor.putBoolean("isFirstTime", false);
+                editor.apply(); // Save the note!
+                // ----------------------------------------------
 
-                // 1. Create the Intent (From Here -> To LoginActivity)
                 android.content.Intent intent = new android.content.Intent(MainActivity.this, LoginActivity.class);
-
-                // 2. Start the new activity
                 startActivity(intent);
-
-                // Optional: Finish this activity so the user can't go back to onboarding
-                // finish();
+                finish();
             }
         });
     }
