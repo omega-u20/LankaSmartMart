@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         View textRegister = findViewById(R.id.textRegister);
 
         SignIn.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, ActivityHome.class);
             startActivity(intent);
         });
 
