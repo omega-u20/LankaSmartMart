@@ -165,23 +165,36 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <GridLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:padding="8dp"
-            android:rowCount="1">
+            android:layout_height="wrap_content">
 
-            <include
-                layout="@layout/item_product"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <include layout="@layout/item_product" />
+                <include
+                    layout="@layout/item_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
-        </GridLayout>
+                <include
+                    layout="@layout/item_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+                <include
+                    layout="@layout/item_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </ScrollView>

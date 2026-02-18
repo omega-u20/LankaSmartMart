@@ -16,7 +16,7 @@
         android:id="@+id/custom_nav_bar"
         layout="@layout/layout_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

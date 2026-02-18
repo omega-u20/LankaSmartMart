@@ -29,12 +29,12 @@ public class CategoryFragment extends Fragment {
         rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         List<CategoryItem> list = new ArrayList<>();
-        list.add(new CategoryItem("Groceries", R.drawable.ic_launcher_foreground, "#FFF3E0"));
-        list.add(new CategoryItem("Household", R.drawable.ic_launcher_foreground, "#E3F2FD"));
-        list.add(new CategoryItem("Personal Care", R.drawable.ic_launcher_foreground, "#FCE4EC"));
-        list.add(new CategoryItem("Stationery", R.drawable.ic_launcher_foreground, "#F3E5F5"));
-        list.add(new CategoryItem("Meats", R.drawable.ic_launcher_foreground, "#FFEBEE"));
-        list.add(new CategoryItem("Fruits", R.drawable.ic_launcher_foreground, "#E8F5E9"));
+        list.add(new CategoryItem("Groceries", R.drawable.carrot, "#FFF3E0"));
+        list.add(new CategoryItem("Household", R.drawable.house, "#E3F2FD"));
+        list.add(new CategoryItem("Personal Care", R.drawable.lotion_bottle, "#FCE4EC"));
+        list.add(new CategoryItem("Stationery", R.drawable.books, "#F3E5F5"));
+        list.add(new CategoryItem("Meats", R.drawable.cut_of_meat, "#FFEBEE"));
+        list.add(new CategoryItem("Fruits", R.drawable.red_apple, "#E8F5E9"));
 
         rv.setAdapter(new CategoryAdapter(list));
     }

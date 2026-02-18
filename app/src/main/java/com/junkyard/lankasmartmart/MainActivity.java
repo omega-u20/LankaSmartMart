@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         onboardingItems.add(new OnboardingItem(
                 "Lanka\nSmartMart",
                 "Groceries delivered to your doorstep in minutes.",
-                R.drawable.ic_launcher_foreground,
+                R.mipmap.logo,
                 android.graphics.Color.parseColor("#E8F5E9") // Light Green
         ));
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         onboardingItems.add(new OnboardingItem(
                 "Fresh from\nthe Farm",
                 "We source organic vegetables directly from farmers in Nuwara Eliya.",
-                R.drawable.ic_launcher_foreground,
+                R.mipmap.broccoli,
                 android.graphics.Color.parseColor("#FFF5E1")
         ));
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         onboardingItems.add(new OnboardingItem(
                 "Shop by\nCategory",
                 "Browse Groceries, Household, Personal Care, Stationery, and more.",
-                R.drawable.ic_launcher_foreground,
+                R.mipmap.basket,
                 android.graphics.Color.parseColor("#F3E5F5")
         ));
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         onboardingItems.add(new OnboardingItem(
                 "Fast & Safe\nDelivery",
                 "Get your daily essentials delivered to your doorstep within minutes.",
-                R.drawable.ic_launcher_foreground,
+                R.mipmap.truck,
                 android.graphics.Color.parseColor("#E1F5FE")
         ));
 

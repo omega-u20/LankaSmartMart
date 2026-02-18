@@ -22,27 +22,31 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profileImage"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_person"
                     android:background="#0288D1"
                     android:padding="15dp"
-                    app:shapeAppearanceOverlay="@style/CircleImage" />
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/CircleImage"
+                    app:tint="#FFFFFF" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignBottom="@id/profileImage"
                     android:layout_alignEnd="@id/profileImage"
+                    android:layout_alignBottom="@id/profileImage"
+                    android:backgroundTint="#2F2F2F"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="4dp">
+
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center"
-                        android:src="@android:drawable/ic_menu_camera" />
+                        android:src="@drawable/cam" />
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
 
@@ -86,7 +90,12 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@android:drawable/ic_menu_agenda" app:tint="#0288D1"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/box"
+                        app:tint="#0288D1" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="My Orders" android:textStyle="bold" android:layout_marginTop="8dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -103,7 +112,12 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@android:drawable/ic_menu_mylocation" app:tint="#4CAF50"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/location"
+                        app:tint="#4CAF50" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Addresses" android:textStyle="bold" android:layout_marginTop="8dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -123,12 +137,14 @@
                 android:padding="10dp">
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="56dp">
-                    <ImageView android:id="@+id/icon1"
+
+                    <ImageView
+                        android:id="@+id/icon1"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_popup_reminder"
-                        app:tint="#F57C00"/>
+                        android:src="@drawable/bell"
+                        app:tint="#F57C00" />
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/icon1"
@@ -147,11 +163,14 @@
                     android:layout_height="1dp" android:background="#F0F0F0"/>
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="56dp">
-                    <ImageView android:id="@+id/icon2"
+
+                    <ImageView
+                        android:id="@+id/icon2"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/stat_notify_sync" app:tint="#1976D2"/>
+                        android:src="@drawable/no_wifi"
+                        app:tint="#1976D2" />
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/icon2"
@@ -159,13 +178,27 @@
                         android:layout_marginStart="16dp"
                         android:text="Sync Data"
                         android:textStyle="bold"/>
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:src="@android:drawable/ic_menu_rotate" app:tint="#BDBDBD"/>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/refresh"
+                        app:tint="#BDBDBD" />
                 </RelativeLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="56dp">
-                    <ImageView android:id="@+id/icon3" android:layout_width="24dp" android:layout_height="24dp" android:layout_centerVertical="true" android:src="@android:drawable/ic_lock_idle_lock" app:tint="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/icon3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/scure"
+                        app:tint="@android:color/black" />
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/icon3"
@@ -173,10 +206,31 @@
                         android:layout_marginStart="16dp"
                         android:text="Security &amp; Login"
                         android:textStyle="bold"/>
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:src="@android:drawable/ic_media_play" app:tint="#BDBDBD"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:rotation="-90"
+                        android:src="@drawable/m3_split_button_chevron_avd"
+                        app:tint="#BDBDBD" />
                 </RelativeLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <RelativeLayout
                     android:id="@+id/btnFindBranch"
@@ -191,8 +245,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_menu_directions"
-                        app:tint="#9C27B0"/> <TextView
+                        android:src="@drawable/locate"
+                        app:tint="#9C27B0" /> <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/icon4"
@@ -207,8 +261,9 @@
                         android:layout_height="20dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_media_play"
-                        app:tint="#BDBDBD"/>
+                        android:rotation="-90"
+                        android:src="@drawable/m3_split_button_chevron_avd"
+                        app:tint="#BDBDBD" />
                 </RelativeLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
@@ -242,12 +297,12 @@
                         android:layout_height="20dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_media_play"
-                        app:tint="#BDBDBD"/>
+                        android:rotation="-90"
+                        android:src="@drawable/m3_split_button_chevron_avd"
+                        app:tint="#BDBDBD" />
                 </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
@@ -262,7 +317,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="horizontal">
-                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_lock_power_off" app:tint="#D81B60"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/exit"
+                    app:tint="#D81B60" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:text="Log Out" android:textColor="#D81B60" android:textStyle="bold"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
