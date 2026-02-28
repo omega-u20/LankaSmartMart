@@ -39,15 +39,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="22dp"
-                android:layout_toStartOf="@+id/textView"
+                android:layout_toStartOf="@+id/btnClearAll"
                 android:layout_toEndOf="@+id/btnBack"
                 android:fontFamily="sans-serif-black"
-                android:text="My Cart (2)"
+                android:text="My Cart"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/btnClearAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -62,13 +62,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="429dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="10dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bottomSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
@@ -91,11 +93,12 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txtTotalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:fontFamily="sans-serif-black"
-                        android:text="Rs. 800"
+                        android:text="Rs. 0"
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
                 </RelativeLayout>

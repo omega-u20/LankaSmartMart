@@ -1,39 +1,29 @@
 package com.junkyard.lankasmartmart;
 
+import java.util.List;
+
 public class Order {
-    private String orderID;
-    private String itemID;
-    private String name;
-    private String price;
-    private float unitPrice;
-    private float quantity;
+    private String orderId;
+    private List<CartItem> items;
+    private double totalAmount;
+    private String status;
+    private String timestamp;
 
-    public Order(String orderID, String itemID, String name, float quantity, float unitPrice) {
-        this.orderID = orderID;
-        this.itemID = itemID;
-        this.name = name;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.price = String.valueOf(quantity * unitPrice);
+    public Order() {
+        // Required for Firebase
     }
 
-    public String getOrderID() {
-        return orderID;
-    }
-    public String getItemID() {
-        return itemID;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPrice() {
-        return price;
-    }
-    public float getUnitPrice() {
-        return unitPrice;
-    }
-    public float getQuantity() {
-        return quantity;
+    public Order(String orderId, List<CartItem> items, double totalAmount, String status, String timestamp) {
+        this.orderId = orderId;
+        this.items = items;
+        this.totalAmount = totalAmount;
+        this.status = status;
+        this.timestamp = timestamp;
     }
 
+    public String getOrderId() { return orderId; }
+    public List<CartItem> getItems() { return items; }
+    public double getTotalAmount() { return totalAmount; }
+    public String getStatus() { return status; }
+    public String getTimestamp() { return timestamp; }
 }

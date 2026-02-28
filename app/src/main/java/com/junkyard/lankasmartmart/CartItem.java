@@ -1,21 +1,25 @@
 package com.junkyard.lankasmartmart;
 
 public class CartItem {
+    private String id;
     private String name;
-    private String price;
-    private int imageRes;
+    private double price;
     private int quantity;
 
-    public CartItem(String name, String price, int imageRes, int quantity) {
+    public CartItem() {
+        // Required for Firebase
+    }
+
+    public CartItem(String id, String name, double price, int quantity) {
+        this.id = id;
         this.name = name;
         this.price = price;
-        this.imageRes = imageRes;
         this.quantity = quantity;
     }
 
-    // Getters
+    public String getId() { return id; }
     public String getName() { return name; }
-    public String getPrice() { return price; }
-    public int getImageRes() { return imageRes; }
+    public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
 }

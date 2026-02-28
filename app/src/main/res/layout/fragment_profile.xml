@@ -56,6 +56,7 @@
                 android:layout_marginStart="20dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/txtProfileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Saman Perera"
@@ -63,6 +64,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
                 <TextView
+                    android:id="@+id/txtProfileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="saman@gmail.com"
@@ -78,6 +80,7 @@
             android:weightSum="2">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnMyOrders"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
@@ -101,6 +104,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnAddresses"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
@@ -162,7 +166,13 @@
                 <View android:layout_width="match_parent"
                     android:layout_height="1dp" android:background="#F0F0F0"/>
 
-                <RelativeLayout android:layout_width="match_parent" android:layout_height="56dp">
+                <RelativeLayout
+                    android:id="@+id/btnSyncData"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
 
                     <ImageView
                         android:id="@+id/icon2"
@@ -180,6 +190,7 @@
                         android:textStyle="bold"/>
 
                     <ImageView
+                        android:id="@+id/imgSyncStatus"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"

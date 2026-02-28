@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,8 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText inputPassword = findViewById(R.id.inputPassword);
 
         btnSignIn.setOnClickListener(v -> {
-            String email = inputEmail.getText().toString();
-            String password = inputPassword.getText().toString();
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
@@ -39,7 +40,12 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(LoginActivity.this, ActivityHome.class));
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null && "admin@gmail.com".equals(user.getEmail())) {
+                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, ActivityHome.class));
+                            }
                             finish(); // Close login activity
                         } else {
                             Toast.makeText(this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -31,9 +31,10 @@ public class SignupActivity extends AppCompatActivity {
         EditText inputPassword = findViewById(R.id.inputPassword);
 
         btnSignUp.setOnClickListener(v -> {
-            String name = inputFullName.getText().toString();
-            String email = inputEmail.getText().toString();
-            String pass = inputPassword.getText().toString();
+            // Trim to remove accidental spaces
+            String name = inputFullName.getText().toString().trim();
+            String email = inputEmail.getText().toString().trim();
+            String pass = inputPassword.getText().toString().trim();
 
             if (email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
@@ -52,7 +53,13 @@ public class SignupActivity extends AppCompatActivity {
                             db.child(userId).setValue(newUser);
 
                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignupActivity.this, ActivityHome.class));
+                            
+                            // Check for admin redirection even after signup
+                            if ("admin@gmail.com".equals(email)) {
+                                startActivity(new Intent(SignupActivity.this, AdminActivity.class));
+                            } else {
+                                startActivity(new Intent(SignupActivity.this, ActivityHome.class));
+                            }
                             finish(); // Finish SignupActivity
                         } else {
                             Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
