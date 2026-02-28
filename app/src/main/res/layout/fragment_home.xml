@@ -170,30 +170,10 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/onboardingRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include
-                    layout="@layout/item_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
-
-                <include
-                    layout="@layout/item_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
-
-                <include
-                    layout="@layout/item_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
         </ScrollView>
 
     </LinearLayout>
