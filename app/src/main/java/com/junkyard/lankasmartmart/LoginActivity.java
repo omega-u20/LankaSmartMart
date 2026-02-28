@@ -2,17 +2,15 @@ package com.junkyard.lankasmartmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,21 +20,31 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        Button SignIn = findViewById(R.id.btnSignIn);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        Button btnSignIn = findViewById(R.id.btnSignIn);
         View textRegister = findViewById(R.id.textRegister);
         EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
 
-        SignIn.setOnClickListener(v -> {
-            String email = inputEmail.getText().toString(); //email input
-            String pass = inputPassword.getText().toString();  //password input
+        btnSignIn.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString();
+            String password = inputPassword.getText().toString();
 
-            // Remove bellow Log and do the DB sh*t
-            Log.i("LoginActivity", "Email: " + email);
-            Log.i("LoginActivity", "Password: " + pass);
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Intent intent = new Intent(LoginActivity.this, ActivityHome.class);
-            startActivity(intent);
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(LoginActivity.this, ActivityHome.class));
+                            finish(); // Close login activity
+                        } else {
+                            Toast.makeText(this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
         textRegister.setOnClickListener(v -> {
