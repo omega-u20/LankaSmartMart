@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     private TextView txtProfileName, txtProfileEmail;
-    private View btnLogout, btnSyncData, btnMyOrders;
+    private View btnLogout, btnSyncData, btnMyOrders, btnFindBranch;
     private ImageView imgSyncStatus;
 
     public ProfileFragment() {
@@ -47,6 +47,7 @@ public class ProfileFragment extends Fragment {
         btnSyncData = view.findViewById(R.id.btnSyncData);
         imgSyncStatus = view.findViewById(R.id.imgSyncStatus);
         btnMyOrders = view.findViewById(R.id.btnMyOrders);
+        btnFindBranch = view.findViewById(R.id.btnFindBranch);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -71,20 +72,36 @@ public class ProfileFragment extends Fragment {
             });
         }
 
-        btnMyOrders.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), OrdersActivity.class));
-        });
+        if (btnMyOrders != null) {
+            btnMyOrders.setOnClickListener(v -> {
+                startActivity(new Intent(getActivity(), OrdersActivity.class));
+            });
+        }
 
-        btnSyncData.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Offline sync is active. Your data will sync automatically.", Toast.LENGTH_LONG).show();
-            imgSyncStatus.animate().rotationBy(360).setDuration(500).start();
-        });
+        if (btnFindBranch != null) {
+            btnFindBranch.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "Opening Map...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+                startActivity(intent);
+            });
+        }
 
-        btnLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
+        if (btnSyncData != null) {
+            btnSyncData.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "Offline sync is active. Your data will sync automatically.", Toast.LENGTH_LONG).show();
+                if (imgSyncStatus != null) {
+                    imgSyncStatus.animate().rotationBy(360).setDuration(500).start();
+                }
+            });
+        }
+
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            });
+        }
     }
 }

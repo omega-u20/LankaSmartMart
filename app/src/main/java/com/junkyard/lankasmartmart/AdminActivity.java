@@ -18,7 +18,7 @@ public class AdminActivity extends AppCompatActivity {
 
     private EditText etProductId, etProductName, etProductQuantity, etUnitPrice;
     private Spinner spinnerCategory;
-    private Button btnSaveProduct, btnUpdateProduct, btnViewDashboard, btnLogoutAdmin;
+    private Button btnSaveProduct, btnUpdateProduct, btnViewDashboard, btnAddBranch, btnLogoutAdmin;
     private DatabaseReference db;
 
     @Override
@@ -36,6 +36,7 @@ public class AdminActivity extends AppCompatActivity {
         btnSaveProduct = findViewById(R.id.btnSaveProduct);
         btnUpdateProduct = findViewById(R.id.btnUpdateProduct);
         btnViewDashboard = findViewById(R.id.btnViewDashboard);
+        btnAddBranch = findViewById(R.id.btnAddBranch);
         btnLogoutAdmin = findViewById(R.id.btnLogoutAdmin);
 
         String[] categories = {"Groceries", "Household", "Personal Care", "Stationery", "Vegetables", "Fruits"};
@@ -47,6 +48,10 @@ public class AdminActivity extends AppCompatActivity {
         
         btnViewDashboard.setOnClickListener(v -> {
             startActivity(new Intent(AdminActivity.this, AdminDashboardActivity.class));
+        });
+
+        btnAddBranch.setOnClickListener(v -> {
+            startActivity(new Intent(AdminActivity.this, AddBranchActivity.class));
         });
 
         btnLogoutAdmin.setOnClickListener(v -> {

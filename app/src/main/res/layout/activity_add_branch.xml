@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Store Branch"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <EditText
+                android:id="@+id/etBranchName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Branch Name (e.g. Colombo 03)"
+                android:inputType="text"/>
+
+            <EditText
+                android:id="@+id/etBranchAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Address"
+                android:inputType="text"
+                android:layout_marginTop="12dp"/>
+
+            <EditText
+                android:id="@+id/etBranchLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Latitude (Tap map to set)"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_marginTop="12dp"/>
+
+            <EditText
+                android:id="@+id/etBranchLng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Longitude (Tap map to set)"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_marginTop="12dp"/>
+
+            <Button
+                android:id="@+id/btnSaveBranch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Branch to Map"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@android:color/black"/>
+
+            <Button
+                android:id="@+id/btnBackFromBranch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:layout_marginTop="12dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tap on the map to set coordinates"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:background="#E0E0E0"/>
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/adminMap"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+</LinearLayout>

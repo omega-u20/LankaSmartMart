@@ -35,12 +35,16 @@ android {
 }
 
 dependencies {
-    // Import the Firebase BoM
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-
-    // Add Firebase Authentication and Realtime Database
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
+
+    // Free Map API (OpenStreetMap)
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
+    
+    // Location services (Still needed for user location)
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 
     implementation(libs.appcompat)
     implementation(libs.material)
