@@ -34,13 +34,16 @@
                     app:tint="#FFFFFF" />
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnEditProfileImage"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignEnd="@id/profileImage"
                     android:layout_alignBottom="@id/profileImage"
                     android:backgroundTint="#2F2F2F"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="4dp">
+                    app:cardElevation="4dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <ImageView
                         android:layout_width="16dp"

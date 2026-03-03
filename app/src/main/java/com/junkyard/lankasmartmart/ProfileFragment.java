@@ -1,7 +1,13 @@
 package com.junkyard.lankasmartmart;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +33,40 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     private TextView txtProfileName, txtProfileEmail;
-    private View btnLogout, btnSyncData, btnMyOrders, btnFindBranch;
-    private ImageView imgSyncStatus;
+    private View btnLogout, btnSyncData, btnMyOrders, btnFindBranch, btnEditProfileImage;
+    private ImageView imgSyncStatus, profileImage;
+
+    private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                    profileImage.setImageBitmap(photo);
+                    Toast.makeText(getContext(), "Profile photo updated (local only)", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
+
+    private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            uri -> {
+                if (uri != null) {
+                    profileImage.setImageURI(uri);
+                    Toast.makeText(getContext(), "Profile image updated (local only)", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    openCamera();
+                } else {
+                    Toast.makeText(getContext(), "Camera permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -48,6 +89,8 @@ public class ProfileFragment extends Fragment {
         imgSyncStatus = view.findViewById(R.id.imgSyncStatus);
         btnMyOrders = view.findViewById(R.id.btnMyOrders);
         btnFindBranch = view.findViewById(R.id.btnFindBranch);
+        btnEditProfileImage = view.findViewById(R.id.btnEditProfileImage);
+        profileImage = view.findViewById(R.id.profileImage);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -72,36 +115,49 @@ public class ProfileFragment extends Fragment {
             });
         }
 
-        if (btnMyOrders != null) {
-            btnMyOrders.setOnClickListener(v -> {
-                startActivity(new Intent(getActivity(), OrdersActivity.class));
-            });
-        }
+        btnEditProfileImage.setOnClickListener(v -> showImageSourceDialog());
 
-        if (btnFindBranch != null) {
-            btnFindBranch.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Opening Map...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), MapsActivity.class);
-                startActivity(intent);
-            });
-        }
+        btnMyOrders.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), OrdersActivity.class));
+        });
 
-        if (btnSyncData != null) {
-            btnSyncData.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Offline sync is active. Your data will sync automatically.", Toast.LENGTH_LONG).show();
-                if (imgSyncStatus != null) {
-                    imgSyncStatus.animate().rotationBy(360).setDuration(500).start();
+        btnFindBranch.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), MapsActivity.class));
+        });
+
+        btnSyncData.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Offline sync is active. Your data will sync automatically.", Toast.LENGTH_LONG).show();
+            imgSyncStatus.animate().rotationBy(360).setDuration(500).start();
+        });
+
+        btnLogout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+    }
+
+    private void showImageSourceDialog() {
+        String[] options = {"Take Photo", "Choose from Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Update Profile Photo");
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA);
                 }
-            });
-        }
+            } else {
+                galleryLauncher.launch("image/*");
+            }
+        });
+        builder.show();
+    }
 
-        if (btnLogout != null) {
-            btnLogout.setOnClickListener(v -> {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            });
-        }
+    private void openCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraLauncher.launch(takePictureIntent);
     }
 }

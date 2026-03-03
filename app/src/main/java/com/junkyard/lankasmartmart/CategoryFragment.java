@@ -4,17 +4,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryFragment extends Fragment {
+
+    private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+            result -> {
+                if(result.getContents() == null) {
+                    Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                }
+            });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,5 +52,17 @@ public class CategoryFragment extends Fragment {
         list.add(new CategoryItem("Fruits", R.drawable.red_apple, "#E8F5E9"));
 
         rv.setAdapter(new CategoryAdapter(list));
+
+        ImageView btnScanQR = view.findViewById(R.id.btnScanQR);
+        if (btnScanQR != null) {
+            btnScanQR.setOnClickListener(v -> {
+                ScanOptions options = new ScanOptions();
+                options.setPrompt("Scan a product QR code");
+                options.setBeepEnabled(true);
+                options.setOrientationLocked(true);
+                options.setCaptureActivity(com.journeyapps.barcodescanner.CaptureActivity.class);
+                barcodeLauncher.launch(options);
+            });
+        }
     }
 }

@@ -43,8 +43,11 @@ dependencies {
     // Free Map API (OpenStreetMap)
     implementation("org.osmdroid:osmdroid-android:6.1.18")
     
-    // Location services (Still needed for user location)
+    // Location services
     implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    // QR Code Scanner
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
     implementation(libs.appcompat)
     implementation(libs.material)
