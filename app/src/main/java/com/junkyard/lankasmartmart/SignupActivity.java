@@ -45,9 +45,10 @@ public class SignupActivity extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Account created! Now save name to Database
+                            // Account created! Now save name to Database using specific region URL
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+                            DatabaseReference db = FirebaseDatabase.getInstance("https://lanka-smartmart-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                                    .getReference("users");
 
                             User newUser = new User(name, email, pass);
                             db.child(userId).setValue(newUser);
