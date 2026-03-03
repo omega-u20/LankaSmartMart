@@ -73,6 +73,14 @@
             android:backgroundTint="#4CAF50"/>
 
         <Button
+            android:id="@+id/btnViewDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Inventory Dashboard"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#1976D2"/>
+
+        <Button
             android:id="@+id/btnLogoutAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

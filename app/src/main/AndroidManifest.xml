@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LankaSmartMart">
         <activity
+            android:name=".AdminDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrdersActivity"
             android:exported="false" />
         <activity

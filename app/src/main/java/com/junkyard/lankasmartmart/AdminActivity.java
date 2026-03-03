@@ -18,7 +18,7 @@ public class AdminActivity extends AppCompatActivity {
 
     private EditText etProductId, etProductName, etProductQuantity, etUnitPrice;
     private Spinner spinnerCategory;
-    private Button btnSaveProduct, btnUpdateProduct, btnLogoutAdmin;
+    private Button btnSaveProduct, btnUpdateProduct, btnViewDashboard, btnLogoutAdmin;
     private DatabaseReference db;
 
     @Override
@@ -35,6 +35,7 @@ public class AdminActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         btnSaveProduct = findViewById(R.id.btnSaveProduct);
         btnUpdateProduct = findViewById(R.id.btnUpdateProduct);
+        btnViewDashboard = findViewById(R.id.btnViewDashboard);
         btnLogoutAdmin = findViewById(R.id.btnLogoutAdmin);
 
         String[] categories = {"Groceries", "Household", "Personal Care", "Stationery", "Vegetables", "Fruits"};
@@ -43,6 +44,10 @@ public class AdminActivity extends AppCompatActivity {
 
         btnSaveProduct.setOnClickListener(v -> saveProduct());
         btnUpdateProduct.setOnClickListener(v -> updateProduct());
+        
+        btnViewDashboard.setOnClickListener(v -> {
+            startActivity(new Intent(AdminActivity.this, AdminDashboardActivity.class));
+        });
 
         btnLogoutAdmin.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
