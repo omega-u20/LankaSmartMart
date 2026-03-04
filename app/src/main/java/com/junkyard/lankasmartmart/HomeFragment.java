@@ -1,10 +1,16 @@
 package com.junkyard.lankasmartmart;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +35,7 @@ public class HomeFragment extends Fragment {
     private List<Product> allProducts = new ArrayList<>();
     private List<Product> filteredProducts = new ArrayList<>();
     private DatabaseReference db;
+    private String currentCategory = "All";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,19 +57,65 @@ public class HomeFragment extends Fragment {
         adapter = new ProductAdapter(filteredProducts);
         recyclerProducts.setAdapter(adapter);
 
-        // Fix: Explicitly setting the database URL for the Singapore region to match others
         db = FirebaseDatabase.getInstance("https://lanka-smartmart-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("products");
 
         fetchProducts();
 
+        // Setup Category Buttons
+        setupCategoryButtons(view);
+
+        // Setup Search
+        EditText etSearch = view.findViewById(R.id.etSearch);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchProducts(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Location click
+        LinearLayout layoutLocation = view.findViewById(R.id.layoutLocation);
+        layoutLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MapsActivity.class);
+            startActivity(intent);
+        });
+
+        // Notification click
+        View btnNotification = view.findViewById(R.id.btnNotification);
+        btnNotification.setOnClickListener(this::showNotificationMenu);
+    }
+
+    private void setupCategoryButtons(View view) {
+        Button btnAll = view.findViewById(R.id.btnCatAll);
         Button btnGroceries = view.findViewById(R.id.btnCatGroceries);
+        Button btnFruits = view.findViewById(R.id.btnCatFruits);
+        Button btnVegetables = view.findViewById(R.id.btnCatVegetables);
         Button btnHousehold = view.findViewById(R.id.btnCatHousehold);
         Button btnPersonalCare = view.findViewById(R.id.btnCatPersonalCare);
 
+        btnAll.setOnClickListener(v -> filterProducts("All"));
         btnGroceries.setOnClickListener(v -> filterProducts("Groceries"));
+        btnFruits.setOnClickListener(v -> filterProducts("Fruits"));
+        btnVegetables.setOnClickListener(v -> filterProducts("Vegetables"));
         btnHousehold.setOnClickListener(v -> filterProducts("Household"));
         btnPersonalCare.setOnClickListener(v -> filterProducts("Personal Care"));
+    }
+
+    private void showNotificationMenu(View v) {
+        PopupMenu popup = new PopupMenu(getContext(), v);
+        popup.getMenu().add("30% New Year Sale is Live!");
+        popup.getMenu().add("Your order #1234 is on the way");
+        popup.getMenu().add("Clear all notifications");
+        popup.setOnMenuItemClickListener(item -> {
+            Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
+        popup.show();
     }
 
     private void fetchProducts() {
@@ -76,26 +129,37 @@ public class HomeFragment extends Fragment {
                         allProducts.add(product);
                     }
                 }
-                // Show all by default or first category
-                filterProducts("Groceries");
+                filterProducts(currentCategory);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void filterProducts(String category) {
+        currentCategory = category;
         filteredProducts.clear();
         for (Product p : allProducts) {
-            if (p.getCategory().equalsIgnoreCase(category)) {
+            if (category.equalsIgnoreCase("All") || p.getCategory().equalsIgnoreCase(category)) {
                 filteredProducts.add(p);
             }
         }
-        if (filteredProducts.isEmpty()) {
-            Toast.makeText(getContext(), "No products in " + category, Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void searchProducts(String query) {
+        filteredProducts.clear();
+        for (Product p : allProducts) {
+            boolean matchesCategory = currentCategory.equalsIgnoreCase("All") || p.getCategory().equalsIgnoreCase(currentCategory);
+            boolean matchesSearch = p.getName().toLowerCase().contains(query.toLowerCase());
+            if (matchesCategory && matchesSearch) {
+                filteredProducts.add(p);
+            }
         }
         adapter.notifyDataSetChanged();
     }

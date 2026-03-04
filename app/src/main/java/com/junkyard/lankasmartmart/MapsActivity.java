@@ -45,6 +45,8 @@ public class MapsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_maps);
 
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);

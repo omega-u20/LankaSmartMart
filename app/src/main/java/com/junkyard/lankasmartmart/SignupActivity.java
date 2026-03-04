@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,11 +25,14 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        ImageButton btnBack = findViewById(R.id.btnBack);
         Button btnSignUp = findViewById(R.id.btnSignUp);
         View textLogin = findViewById(R.id.textLogin);
         EditText inputFullName = findViewById(R.id.inputFullName);
         EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
+
+        btnBack.setOnClickListener(v -> finish());
 
         btnSignUp.setOnClickListener(v -> {
             // Trim to remove accidental spaces
@@ -68,9 +72,6 @@ public class SignupActivity extends AppCompatActivity {
                     });
         });
 
-        textLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            startActivity(intent);
-        });
+        textLogin.setOnClickListener(v -> finish());
     }
 }
